@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabungan Menuju Kelulusan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .content {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .result {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .label {
+            background-color: #f39c12;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+        }
+        .total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Tabungan Untuk Kelulusan</h1>
+        <p id="days-remaining" class="result"></p>
+        <p id="savings" class="result">Total tabungan yang terkumpul: Rp 0.</p>
+        <button id="add-savings">Tambah Tabungan 20k</button>
+        <div class="label">Tujuan 50k: Madura - Surabaya</div>
+        <div class="label">Tujuan 400k: Surabaya - Jakarta</div>
+        <div class="label">Tujuan 600k: Jakarta - Padang</div>
+        <div class="label">Tujuan 600k: Padang - Jakarta (2 orang)</div>
+        <div class="label">Kos 800k: Biaya kos</div>
+        <div class="total">Total Biaya: Rp 3.050.000</div>
+    </div>
+    <script>
+        // Target graduation date
+        const graduationDate = new Date("2025-05-06");
+        const today = new Date();
+
+        // Calculate total remaining days (including all days)
+        const timeDiff = graduationDate - today;
+        const totalDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        // Display total days remaining
+        document.getElementById("days-remaining").textContent =
+            `Sisa hari menuju kelulusan: ${totalDays} hari.`;
+
+        // Load the saved savings from LocalStorage
+        let savings = localStorage.getItem('savings') ? parseInt(localStorage.getItem('savings')) : 0;
+
+        // Display current savings
+        document.getElementById("savings").textContent = 
+            `Total tabungan yang terkumpul: Rp ${savings.toLocaleString('id-ID')}.`;
+
+        // Add savings on button click
+        document.getElementById("add-savings").addEventListener("click", () => {
+            savings += 20000;  // Add 20k to savings
+            localStorage.setItem('savings', savings);  // Save the new savings to LocalStorage
+            document.getElementById("savings").textContent = 
+                `Total tabungan yang terkumpul: Rp ${savings.toLocaleString('id-ID')}.`;
+        });
+    </script>
+</body>
+</html>
